@@ -321,29 +321,6 @@ everyone else combined, than to undermine the system and the validity of his own
                 If the total amount of inputs exceeds the total amount of outputs, then the rest is collectable by miner, who includes
                 transaction in block.
               </p>
-
-              <p>There are two types of confirmation conditions now: Pay-To-PubkeyHash and Pay-to-Script-Hash</p>
-              <p>Pay-To-PubkeyHash is sending transaction to a bitcoin address - I will explain  method in a moment and I will show that it i
-
-              </p>
-              <p>
-
-              P2PH is represented on this slide.<br/>
-              Verification is:
-              <ol>
-                <li>Put signature, then pubkey then, script from the previous transaction to stack, and scan stack bottom-to-top</li>
-                <li>OP_DUP - Duplicate pubkey and put it between pubkey and OP_HASH160</li>
-                <li>OP_HASH160 - replace last pubkey with hash</li>
-                <li>OP_EQUALVERIFY - compare hash values and removes them from stack</li>
-                <li>OP_CHECKSIG - verify signature against simplified version of transaction</li>
-              </ol>
-              </p>
-              <p>P2SH addresses were created with the motivation of moving "the responsibility for 
-              supplying the conditions to redeem a transaction from the sender of the funds to the redeemer. 
-              They allow the sender to fund an arbitrary transaction, no matter how complicated, using a 20-byte hash" <a href="https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki" target="_blank">See BIP: 16</a>
-              <br/>
-              P2SH transactions lie in the foundation of Ligntling protocol
-              </p>
             </div>
           </Notes>
         </Slide>
@@ -475,14 +452,16 @@ everyone else combined, than to undermine the system and the validity of his own
           <Notes>
             <p>When started 9 years ago bitcoin was just a bit of technology.<br /> 
             Now it is more than technology, it was even coined as "Internet Trust Machine" in one publication.</p>
-            <p>Two things ICOs and Private Blockchains. Both start with marketing and whitepapers. 
+            <p>Two things: ICOs and Private Blockchains. 
               <ul>
-                <li>ICOs: I believe that many companies that go into ICO are capable to develop product, they claim to do. 
+                <li>ICOs: I believe that many companies that go into ICO are capable to develop product, they claim. 
                 But between the lines of whitepaper, there is a promise that they will develop entirely new market for their product.
-                This is where they fail.</li>
+                This is where many of them fail.</li>
                 <li>Private Blockchains: Big company come up with white paper that they will develop X using Blockchain technology. 
-                They have choosen "Big Name Blockchain". <br />
-                Their trust machine has not even started.
+                They have choosen "Big Name Blockchain" (IBM blockchain, HP blockchain is a service). <br />
+                Their trust machine has not even started.<br />
+                Once a shop offered fake Christmas decorations. They look similar to real ones, but there is no joy. <br />
+                There is no trust in private blockchains. 
                 </li>
               </ul>
 
