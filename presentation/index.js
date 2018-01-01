@@ -31,10 +31,12 @@ const Fit1 = styled(Fit)`
 const images = {
   sign: require('../assets/sign.png'),
   verify: require('../assets/sign-verify.png'),
-  transactions: require('../assets/transChain.png'),
+  coin: require('../assets/coin.gif'),
+  doublespend: require('../assets/double-spending.png'),
   blockchain: require('../assets/blockchain.png'),
   transaction: require('../assets/transaction.png'),
-  transaction1: require('../assets/transaction1.png')
+  transaction1: require('../assets/transaction1.png'),
+  address: require('../assets/address.png')
 }
 
 // Import theme
@@ -139,19 +141,19 @@ export default class Presentation extends React.Component {
         </Slide>
 
        <Slide>
-          <Heading fit="true">Assymetric cryptograpy</Heading>
+          <Heading fit="true">Asymetric cryptograpy</Heading>
           <List>
             <ListItem>Public/Private key pair</ListItem>
             <ListItem>Both keys of a pair can be used to encrypt messages</ListItem>
             <ListItem>Encryption with Public Key => secret messages</ListItem>
-            <ListItem>Encryptoin wiht Private Key => digital signatures</ListItem>
+            <ListItem>Encryptoin with Private Key => digital signatures</ListItem>
           </List>
           <Notes>
-            <p>Assymetric cryptosystems are build on the notion of two keys: public and private key pair</p>
+            <p>Asymetric cryptosystems are build on the notion of two keys: public and private key pair</p>
             <p>Their usage is interchangeable: both keys can be used to encrypt messages.
             Whatever is encrypted with one key of the pair can be decrypted with and only with another key of the pair.</p>
             <p>
-            Please note: Here presented a simplified view, that is more applicable to RSA-type of assymetric cryptograpy<br/>
+            Please note: Here presented a simplified view, that is more applicable to RSA-type of asymetric cryptograpy<br/>
             In case of RSA public and private keys are integer exponents, so the algorithm of encryption with public and private keys
             is the same. In case of Eliptic Curve Cryptograpy, that is used with Bitcoin, private key is some integer multiplicator
             and public key is a point on plaine over a finite field (there are two types of Curves can be used, so two types of fields).
@@ -186,29 +188,39 @@ export default class Presentation extends React.Component {
         <Slide transition={["fade"]}>
           <Heading fit="true">Electronic coin</Heading>
           <Text textColor="secondary">Coin is a chain of digital signatures</Text>
-          <Image src={images.transactions} />
+          <Image src={images.coin} />
+          <Text textColor="secondary">Transfer: owner signs hash of previous transaction and next owner's public key</Text>
           <Notes>
             <div style={{'font-size': '20px'}}>
-              <p>Each owner transfers the coin to the
+              <p>Electronic coin is defined as a chain of digital signatures. 
+                 Each owner transfers the coin to the
                  next by digitally signing a hash of the previous transaction 
                  and the public key of the next owner and adding these 
                  to the end of the coin. </p>
               <p>
-               Public key here plays role of address to which coin is sent. 
-               But with bitcoin situation is slightly more complex. 
-               Bitcoin address is not public key but the value derived from public key using crypto hashes + versoin and checksum info.
-               Public key in the open form is attached to transaction, so bitcoin address, wich is target of previous transaction, 
-               can be verified by hashing public key. This protects against attempt to derive private key 
-               from public key: public key is not exposed until the moment bitcoin is spent.
+                Transaction are addressable by hash, each owner is adressable by Public Key. There is no coin identifier per se.
               </p>
-              <p>Payee can verify signatures to verify the chain of ownership.</p>
               <p>
-                The problem here is that payee cannot verify that one of the owners did not double-spent the coin.
-                To do that we need to be aware of all transactions in the system: transactoins need to be publically anounced and 
-                we need to have common agreement (consensus) on a single history of the order in which transactions occur, so we take
-                into account only the earliest transaction for the coin. 
+                Privacy is protected by keeping public keys anonymous: they still ok to be used for digital signature verification, but they are not linked to person or legal entity.
               </p>
-              <p>Of course, sigle trusted authority can be used (such as bank), but bitcoin employs different mechanism</p>
+              <p>
+                The whole chain of ownership can be verified by checking digital signatures, down to initial owner of coin. 
+              </p>
+            </div>
+          </Notes>
+        </Slide>
+        <Slide  transition={["fade"]}>
+          <Heading fit="true">Double spending</Heading>
+          <Image src={images.doublespend} />
+          <Notes>
+            <div style={{'font-size': '20px'}}>
+              <p>The problem with electronic coin is that we need a way to verify that non of the previous owners has double spent the coin.</p>
+              <p>Double spending introduce alternative chain of signatures as shown on picture. Both chains of ownership can be verified.</p>
+              <p>A common solution is to introduce central trusted authority, that checks every transaction for double spending. 
+              After each transaction a coin must be returned to the company running authority, and this company effectively issue a new trusted coin after checking the transaction.
+              The problem here is the fate of entire money system depends on a single company, running authority</p>
+              <p>If we have a way to tell, which of the two transactions, that intruduce double-spending is the earliest one we can ignore other transactions. 
+              For that we need a system in which all transactions are publically anounced and participants of the system agree on a single history of order in which transactions were recieved.</p>
             </div>
           </Notes>
         </Slide>
@@ -216,26 +228,37 @@ export default class Presentation extends React.Component {
           <Heading>Blockchain</Heading>
           <Image src={images.blockchain} />
           <Notes>
-            <div style={{'font-size': '20px'}}>
-              <p>Blockchain is an implementation of distributed timestamped database. Difficulty of finding next block is such that 
-              using hasing power of whole network next block can be found in approximately 10 minutes</p>
+            <div style={{'font-size': '18px'}}>
               <p>
-                Block contains:
-                <ul>
-                  <li>Hash of previous block</li>
-                  <li>Timestamp when block created</li>
-                  <li>Transaction data, organized as Merkle tree. Unlike hash list data structure, demonstrating that transaction is part of hash tree require only about log N hashing operatoins</li>
-                  <li>Nonce value</li>
-                </ul>
+                Blockchain is an implementation of distributed timestamped database that provides common consensus on history of order of transactions. 
               </p>
-              <p>When block is found it is broadcasted to all nodes, 
-              they verify block and its transactions and if block is correct they vote for it by trying to find the next block.
+              <p>
+                Let us review how block is constructed by miners. <br />
+                First - transactions, that will be included into the block are pulled from unconfirmed transaction pool. 
+                Each transaction is checked for over-spending, double-spending (using previous blocks). 
+                And then a hash tree (Merkel tree) is formed out of valid transactions. <br />
+                Then block header is formed out of root of hash tree, current timestamp, and a hash of previous block header. <br />
+                Finally, miner tries to find the nonce value, such as that header hashes to a beautiful hash.
+              </p>
+              <p>
+                The same process is done by all Nodes (note that the set of transactions is different for each Node). Dificulty of finding nonce
+                value is dynamically adjasted, so that the next block can be found in approximately 10 minutes, using hashing power
+                of the whole network.
+              </p>
+              <p>
+                Once block is found by one of the Nodes it is broadcasted to all other Nodes. 
+                When new block is recieved, Node checks block and its transactions, and if validated ok, Node starts 
+                the process again, trying to form next block, on top of the one recieved, effectively voting for the recieved block.
               </p>
               <p>
                 Node always consider the longest chain to be correct.
                 If two or more blocks found at the same time node should continue to work on block that is arrived first, but should save
                 others in case next prof-of-work is found on other branch. When one of the branches become longer nodes that are working
                 on other branches switch to the longer one.
+              </p>
+              <p>
+                There is no incentive for Node to vote for incorrect block or for the block that contains incorrect transaction,
+                because other Nodes will not vote for it and they will be able to build longer chain more quickly.
               </p>
             </div>
           </Notes>
@@ -245,11 +268,11 @@ export default class Presentation extends React.Component {
           <List>
             <ListItem>Coinbase transaction - transaction with no inputs, that generate coins for miner</ListItem>
             <ListItem>Fees collected from transactions, included in block. When forming next block, miner is free to pick those 
-            transanctoins that offer greater fee</ListItem>
+            transactions that offer greater fee</ListItem>
           </List>
           <Notes>
             <div style={{'font-size': '20px'}}>
-              <p>The first transaction of each block is a coinbase transannction. Input of this transaction is "coinbase" which can 
+              <p>The first transaction of each block is a coinbase transaction. Input of this transaction is "coinbase" which can 
               contain arbitrary data</p>
               <p>Fee: when sum of transaction inputs is more then sum of transaction outputs the reminder is collectable by miner<br/>
               As block size currently is about 1M, the important metric for miner is fee per transaction byte</p>
@@ -268,9 +291,10 @@ everyone else combined, than to undermine the system and the validity of his own
             <div style={{'font-size': '20px'}}>
               <p>It is not convenient to operate coins, as defined previously, because vale of the coin cannot be split and combined.</p>
               <p>Bitcoin transaction can have multiple inputs and outputs</p>
-              <p>Inputs reference to outputs of previous transactions, and provide proofs that bitcoins can be spent, such as digital signature and public key<br/>
-              Outputs define conditions on which value can be spent by next owner</p>
-              <p>Still, there is no such thing as an accout balance: balance is determined by all transaction outputs that you can control; for individual transaction you put number of inputs nessessary to fund the transaction outputs, and one of the outputs can be yours, to collect reminder of payment.</p>
+              <p>In Bitcoin system there is no such thing as an accout balance: balance is determined by all transaction outputs that person can control</p>
+              <p>When there is a need to spent more than any of outputs under control provides, transaction has to have multiple inputs.</p>
+              <p>Also, amount spendable through transaction inputs does not exactly match the desired amount of bitcoin transfer, 
+              change is returned to owner who inserts additional output (that he can control) to the transaction.</p>
             </div>
           </Notes>
         </Slide>
@@ -279,8 +303,31 @@ everyone else combined, than to undermine the system and the validity of his own
           <Image src={images.transaction1} />
           <Notes>
             <div style={{'font-size': '20px'}}>
-              <p>There are two types of transactions now: Pay-To-PubkeyHash and Pay-to-Script-Hash</p>
               <p>
+                What exactly are bitcoint transaction inputs and outputs?<br />
+                Input:
+                <ul>
+                  <li>Input reference to the output of some previous transaction, through <code>PreviousTX</code> and <code>Index</code> fileds.</li>
+                  <li>Input does not specify an amount: it is considered that whole amount specified in output is totally spent via transactoin</li>
+                  <li>Input provides a proof that prev tx output is controlled by transaction initiator. 
+                  Usually it is digital signature of the simplified version of the whole transaction.</li>
+                </ul>
+                Output:
+                <ul>
+                  <li>Each output specifies value spendable through this output</li>
+                  <li>Output specify a condition on which output can be spent</li>
+                </ul>
+                Transaction is considered invalid if the total output exceeds the total amount of outputs referenced through inputs. <br />
+                If the total amount of inputs exceeds the total amount of outputs, then the rest is collectable by miner, who includes
+                transaction in block.
+              </p>
+
+              <p>There are two types of confirmation conditions now: Pay-To-PubkeyHash and Pay-to-Script-Hash</p>
+              <p>Pay-To-PubkeyHash is sending transaction to a bitcoin address - I will explain  method in a moment and I will show that it i
+
+              </p>
+              <p>
+
               P2PH is represented on this slide.<br/>
               Verification is:
               <ol>
@@ -297,6 +344,67 @@ everyone else combined, than to undermine the system and the validity of his own
               <br/>
               P2SH transactions lie in the foundation of Ligntling protocol
               </p>
+            </div>
+          </Notes>
+        </Slide>
+        <Slide  transition={["fade"]}>
+          <Heading fit="true">Bitcoin address</Heading>
+          <Image src={images.address} />
+          <Notes>
+            <div style={{'font-size': '20px'}}>
+              <p>As your remember, transaction of primitive coin is defined as digitally signed message that contains Public key of next owner. And Public Key plays a role of an owner address.</p>
+              <p>Instead of Public Keys in open form, bitcoin system uses adresses that are derivable from keys by applying HASH-160 function.</p>
+              <p>Hash of Public Key is easily derivable from address</p>
+              <p>With bitcoin transaction, hash of next owner's Public Key is signed (it goes to output of transaction). 
+              In order to spend an output, the owner must provide Public Key in open form, and verification makes sure that:
+              <ol>
+                <li>Public Key's hash value is the same as specified in output. (So, owner's public key is identified)</li>
+                <li>Digital signature of transaction is correct. Public Key in open form is used to verify signature.</li>
+              </ol>
+              </p>
+              <p>
+                This verification steps are programmed in 'scriptPubKey' field of output (spending condition), and processed on stack machine:
+                <ol>
+                <li>Put signature, then pubkey then, script from the previous transaction to stack, and scan stack bottom-to-top</li>
+                <li>OP_DUP - Duplicate pubkey and put it between pubkey and OP_HASH160</li>
+                <li>OP_HASH160 - replace last pubkey with hash</li>
+                <li>OP_EQUALVERIFY - compare hash values and removes them from stack</li>
+                <li>OP_CHECKSIG - verify signature against simplified version of transaction</li>
+                </ol>
+              </p>
+            </div>
+          </Notes>
+        </Slide>
+        <Slide  transition={["fade"]}>
+          <Heading fit="true">What has not been covered in this presentation</Heading>
+          <List>
+            <ListItem>Eliptic Curve Cryptograpy - bitcoin system uses secp256k1 curve as defined in Standards for Efficient Cryptography (SEC)</ListItem>
+            <ListItem>Key Management and Wallets - in particular Deterministic Wallets where keys are derived from initial seed (that is kept secret)</ListItem>
+            <ListItem>Newer features introduced with Pay-to-Script-Hash <a href="https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki" target="_blank">See BIP: 0016</a></ListItem>
+          </List>
+          <Notes>
+            <div style={{'font-size': '20px'}}>
+              Many things were not covered in this presentation, and I leave them to your own research.
+              <ol>
+                <li>ECC provide some features that are not found in other asymetric crypto systems. For example, 
+                  Hierarchical Deterministic Wallets are based on unique features of ECC for deriving keys. <br />
+                  But it is really a huge topic, prepare to spend weeks on that.
+                </li>
+                <li>Public/Private key pairs that are used in bitcoin transactions are intended for one time usage.
+                  Key generation, management, backups, etc is provided by software called wallet. Newer "HD wallets" provide 
+                  Hierarchical key management, and secure address generation even without exposing Private Keys. For example
+                  you can generate bitcoin address to pay to you with software, deployed on insecure web server, without need
+                  to deploy any of your private keys, so coins are not spendable if webserver is hacked.
+                </li>
+                <li>
+                  P2SH addresses were created with the motivation of moving "the responsibility for 
+                  supplying the conditions to redeem a transaction from the sender of the funds to the redeemer. 
+                  They allow the sender to fund an arbitrary transaction, no matter how complicated, using a 20-byte hash".
+                  Basically, you can create transaction output without specifying to whom you are sending bitcoins: anyone who 
+                  knows certain secret can spend bitcoins from that output. <br />
+                  That lies in foundation of Hash-Time-Locked-Contracts, that are basis of Lightning Network.
+                </li>
+              </ol>
             </div>
           </Notes>
         </Slide>
@@ -352,11 +460,37 @@ everyone else combined, than to undermine the system and the validity of his own
             <ListItem>Etherium - smart contracts</ListItem>
             <ListItem>Lightning Network - micro-payments and payment channels</ListItem>
             <ListItem>IOTA - Distriuted Ledger, based on DAG, oriented to Machine Economy</ListItem>
+            <ListItem>RIPPLE - Consensus protocol, not based on prof-of-work. Provides fast transactions, used right now mainly in currency trading</ListItem>
           </List>
           <Notes>
-            <p>From these: IOTA recently recieved a lot of criticism, based on poor implementation. The question is whether we see adoption from device makers.</p>
+            <p>The most interesting if these is Etherium. Probably, my next presentatoin will be about etherium and smart contracts</p>
+            <p>IOTA recently recieved a lot of criticism, based on poor implementation. The question is whether we see adoption from device makers.</p>
           </Notes>
         </Slide>
+        <Slide transition={["zoom"]}>
+          <Heading fit="true">Bitcoin is more than technology</Heading>
+          <Text textColor="secondary" textSize="1em">
+            Bitcoin is Internet Trust Machine
+          </Text>
+          <Notes>
+            <p>When started 9 years ago bitcoin was just a bit of technology.<br /> 
+            Now it is more than technology, it was even coined as "Internet Trust Machine" in one publication.</p>
+            <p>Two things ICOs and Private Blockchains. Both start with marketing and whitepapers. 
+              <ul>
+                <li>ICOs: I believe that many companies that go into ICO are capable to develop product, they claim to do. 
+                But between the lines of whitepaper, there is a promise that they will develop entirely new market for their product.
+                This is where they fail.</li>
+                <li>Private Blockchains: Big company come up with white paper that they will develop X using Blockchain technology. 
+                They have choosen "Big Name Blockchain". <br />
+                Their trust machine has not even started.
+                </li>
+              </ul>
+
+            </p>
+
+          </Notes>
+        </Slide>
+
         <Slide transition={["zoom"]}>
           <Heading fit="true">Thank you</Heading>
           <Notes>

@@ -85,14 +85,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="372.24697"
-     inkscape:cy="461.94987"
+     inkscape:zoom="1"
+     inkscape:cx="384.62639"
+     inkscape:cy="112.51606"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1600"
-     inkscape:window-height="847"
+     inkscape:window-height="877"
      inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
@@ -104,7 +104,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -507,7 +507,10 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="g5622">
+       id="g5622"
+       inkscape:export-filename="D:\Development\screenfy\presentations\blockchain\assets\transaction1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          sodipodi:linespacing="125%"
          id="text5569"
@@ -619,6 +622,152 @@
            x="567.34534"
            y="720.09302"
            style="fill:#ffffff;fill-opacity:1">can be spent</tspan></text>
+    </g>
+    <g
+       id="g5104"
+       inkscape:export-filename="D:\Development\screenfy\presentations\blockchain\assets\address.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="translate(-8.7904732,0)"
+         id="g5015">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#fac117;fill-opacity:0.95294118;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="81.822357"
+           y="872.55505"
+           id="text4881"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan4883"
+             x="81.822357"
+             y="872.55505">Public Key  =&gt; PubkeyHash160  &lt;=&gt; Bitcoin Address</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="85"
+           y="898.79077"
+           id="text4885"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan4887"
+             x="85"
+             y="898.79077"
+             style="font-size:17.5px">256-bit key </tspan><tspan
+             sodipodi:role="line"
+             x="85"
+             y="920.66577"
+             id="tspan4889" /></text>
+        <text
+           sodipodi:linespacing="125%"
+           id="text4908"
+           y="900.91211"
+           x="241.10051"
+           style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             style="font-size:17.5px"
+             y="900.91211"
+             x="241.10051"
+             id="tspan4910"
+             sodipodi:role="line">27-symbol string</tspan><tspan
+             id="tspan4912"
+             y="922.78711"
+             x="241.10051"
+             sodipodi:role="line" /></text>
+        <g
+           id="g4932"
+           transform="translate(-20,-4)">
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             x="473.77414"
+             y="900.91211"
+             id="text4920"
+             sodipodi:linespacing="125%"><tspan
+               sodipodi:role="line"
+               id="tspan4922"
+               x="473.77414"
+               y="900.91211"
+               style="font-size:17.5px">Version+Hash+Checksum</tspan><tspan
+               sodipodi:role="line"
+               x="473.77414"
+               y="922.78711"
+               id="tspan4924" /></text>
+          <text
+             sodipodi:linespacing="125%"
+             id="text4926"
+             y="919.29694"
+             x="449.69699"
+             style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-size:12.5px"
+               y="919.29694"
+               x="449.69699"
+               id="tspan4928"
+               sodipodi:role="line">1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2</tspan><tspan
+               style="font-size:12.5px"
+               id="tspan4930"
+               y="934.92194"
+               x="449.69699"
+               sodipodi:role="line" /></text>
+        </g>
+      </g>
+      <g
+         transform="translate(-5,4)"
+         id="g4968">
+        <rect
+           style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#fbc117;stroke-width:6.27302408;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.95294118"
+           id="rect4940"
+           width="636.37433"
+           height="99.487907"
+           x="83.121521"
+           y="957.30817" />
+        <text
+           sodipodi:linespacing="125%"
+           id="text4942"
+           y="987.55505"
+           x="97.822357"
+           style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#fac117;fill-opacity:0.95294118;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             y="987.55505"
+             x="97.822357"
+             id="tspan4944"
+             sodipodi:role="line">Output:</tspan><tspan
+             y="1012.5551"
+             x="97.822357"
+             sodipodi:role="line"
+             id="tspan4946"> - scriptPubKey: OP_DUP OP_HASH_160 &lt;PubKeyHash160&gt;</tspan><tspan
+             y="1037.5551"
+             x="97.822357"
+             sodipodi:role="line"
+             id="tspan4948">                        OP_EQUALVERIFY OP_CHECKSIG</tspan></text>
+      </g>
+      <g
+         transform="translate(0,12)"
+         id="g4962">
+        <rect
+           y="1070.1061"
+           x="78.121521"
+           height="99.487907"
+           width="636.37433"
+           id="rect4950"
+           style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#fbc117;stroke-width:6.27302408;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.95294118" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#fac117;fill-opacity:0.95294118;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="92.822357"
+           y="1112.5551"
+           id="text4952"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan4954"
+             x="92.822357"
+             y="1112.5551">Input:</tspan><tspan
+             id="tspan4958"
+             sodipodi:role="line"
+             x="92.822357"
+             y="1137.5551"> - scriptSig:  &lt;signature&gt; &lt;pubkey_open&gt;</tspan></text>
+      </g>
     </g>
   </g>
 </svg>
