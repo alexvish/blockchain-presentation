@@ -146,7 +146,7 @@ export default class Presentation extends React.Component {
             <ListItem>Public/Private key pair</ListItem>
             <ListItem>Both keys of a pair can be used to encrypt messages</ListItem>
             <ListItem>Encryption with Public Key => secret messages</ListItem>
-            <ListItem>Encryptoin with Private Key => digital signatures</ListItem>
+            <ListItem>Encryption with Private Key => digital signatures</ListItem>
           </List>
           <Notes>
             <p>Asymetric cryptosystems are build on the notion of two keys: public and private key pair</p>
